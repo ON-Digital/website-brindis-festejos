@@ -1,3 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 bootstrap-4.0\docs\4.0\components\alerts.md
+bootstrap-4.0\package-lock.json
