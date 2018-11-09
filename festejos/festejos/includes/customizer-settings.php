@@ -271,6 +271,48 @@
           )
       );
 
+      // Image front page
+      $wp_customize->add_setting(
+         'menu_img_services',
+         array(
+             'default' => '',
+             'sanitize_callback' => 'esc_url_raw',
+             'transport' => 'postMessage',
+         )
+      );
+
+      $wp_customize->add_control(
+          new WP_Customize_Image_Control(
+              $wp_customize, 'menu_img_services_control',
+              array(
+                'label' => esc_html__( 'Imagen para la página "servicios"', 'festejos' ),
+                'section' => 'static_front_page',
+                'settings' => 'menu_img_services'
+              )
+          )
+      );
+
+      // Image front page
+      $wp_customize->add_setting(
+         'menu_img_about',
+         array(
+             'default' => '',
+             'sanitize_callback' => 'esc_url_raw',
+             'transport' => 'postMessage',
+         )
+      );
+
+      $wp_customize->add_control(
+          new WP_Customize_Image_Control(
+              $wp_customize, 'menu_img_about_control',
+              array(
+                'label' => esc_html__( 'Imagen para la página about us', 'festejos' ),
+                'section' => 'static_front_page',
+                'settings' => 'menu_img_about'
+              )
+          )
+      );
+
 
 
   }
@@ -321,27 +363,26 @@
       wp_add_inline_style( 'fes_stylesheets', $menu_img_front );
 
 
+      $img_about = get_theme_mod( 'menu_img_about' );
+
+
       $about_pg_img =
       '.p-about__home {
-        background-image: url( ' . get_stylesheet_directory_uri() . '/img/about-pg-img.jpg );
+        background-image: url( ' . $img_about . '/img/about-pg-img.jpg );
       }';
 
       wp_add_inline_style( 'fes_stylesheets', $about_pg_img );
 
 
+      $img_services = get_theme_mod( 'menu_img_services' );
+
+
       $services_pg_img = '.p-services__home {
-        background-image: url(' . get_stylesheet_directory_uri() . '/img/services-pg-thumb-01.jpg );
+        background-image: url(' . $img_services . '/img/services-pg-thumb-01.jpg );
       }';
 
       wp_add_inline_style( 'fes_stylesheets', $services_pg_img );
 
-
-      $menu_pg_img =
-        '.p-menu__home {
-          background-image: url(' . get_stylesheet_directory_uri() . '/img/menu-pg-img.jpg);
-        }';
-
-      wp_add_inline_style( 'fes_stylesheets', $menu_pg_img );
 
 
   }

@@ -89,6 +89,22 @@ jQuery( document ).ready( function( $ ) {
 
   } );
 
+  wp.customize( 'menu_img_about', function( value ) {
+
+   value.bind( function( to ) {
+     $( '.p-about__home' ).css( 'background-image', 'url(' + to + ')' );
+   } );
+
+  } );
+
+  wp.customize( 'menu_img_services', function( value ) {
+
+   value.bind( function( to ) {
+     $( '.p-services__home' ).css( 'background-image', 'url(' + to + ')' );
+   } );
+
+  } );
+
 
 
 
