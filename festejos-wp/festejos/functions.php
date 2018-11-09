@@ -21,10 +21,50 @@
 
   add_action( 'save_post', 'fes_save_posts' );
 
+  add_action( 'wp_head', 'fes_fonts' );
+
+  function fes_fonts() {
+    ?>
+      <style media="screen">
+
+      @font-face {
+      font-family: 'Helvetica';
+      font-style: normal;
+      font-weight: normal;
+      src: local('Helvetica'), url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/Helvetica.woff') format('woff');
+      }
+
+
+      @font-face {
+      font-family: 'Helvetica Oblique';
+      font-style: normal;
+      font-weight: normal;
+      src: local('Helvetica Oblique'), url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/Helvetica-Oblique.woff') format('woff');
+      }
+
+
+      @font-face {
+      font-family: 'Helvetica Bold';
+      font-style: normal;
+      font-weight: normal;
+      src: local('Helvetica'), url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/Helvetica-Bold.woff') format('woff');
+      }
+
+
+      @font-face {
+      font-family: 'Helvetica Bold Oblique';
+      font-style: normal;
+      font-weight: normal;
+      src: local('Helvetica Bold Oblique'), url('<?php echo get_stylesheet_directory_uri(); ?>/fonts/Helvetica-BoldOblique.woff') format('woff');
+      }
+
+    </style>
+
+    <?php
+  }
+
 
   function fes_save_posts( $post_id ) {
-
-      if ( array_key_exists( $_POST[ 'fes_mtbx_field' ], $_POST ) ) {
 
 
         if ( ! isset( $_POST[ 'fes_mtbx_field' ] ) && ! wp_verify_nonce( $_POST[ 'fes_mtbx_field' ], 'fes_mtbx_action' ) ) {
@@ -46,9 +86,6 @@
         if ( isset( $_POST[ 'fes_price' ] ) ) {
     			update_post_meta( $post_id, 'fes_price', sanitize_text_field( $_POST[ 'fes_price' ] ) );
     		}
-
-      }
-
 
    }
 
