@@ -12,17 +12,18 @@ get_header();
   <h1 class="text-center w-100 whole-cols-width font-uppercase subheading--letter-spacing text-primary mt-5 mb-4">
     <?php
 
-    global $post;
+    if( have_posts() ) {
+      while ( have_posts() ) {
+        the_post();
 
-      if ( get_the_title( get_the_ID() ) ) {
+          echo esc_html( get_the_title() );
 
-        echo esc_html( get_the_title() );
+      }
+    } else { ?>
 
-      } else {
-        ?>
-        <span class="d-block main-heading--small font-oblique"><?php _e( 'Tradición familiar', 'festejos' ); ?></span>
-          <?php _e( 'Nosotros', 'festejos' ); ?>
-      <?php
+      <span class="d-block main-heading--small font-oblique"><?php _e( 'Tradición familiar', 'festejos' ); ?></span>
+        <?php _e( 'Nosotros', 'festejos' );
+
     }
 
     ?>
@@ -30,30 +31,37 @@ get_header();
 </header>
 
 <?php
-  if ( apply_filters( 'the_content', get_post( get_the_ID() )->post_content ) ) :
 
-    ?>
+if( have_posts() ) { ?>
 
-    <div class="container mb-5">
-      <div class="row">
+  <div class="container mb-5">
+    <div class="row">
 
-        <?php
-            the_content();
-        ?>
+      <?php
+  while ( have_posts() ) {
+    the_post();
 
-      </div>
-    </div>
+    the_content();
 
-    <?php
+  } ?>
+  </div>
+  </div>
 
-  else : ?>
+<?php
+
+}
+
+else {
+  ?>
 
   <div class="p-about grid-wrp grid-12cols mb-5 pb-5">
 
       <div class="p-about__thumb mt-4">
         <!-- <img src="img/about-page-thumb.jpg" class="mw-100" alt=""> -->
         <?php
-          echo get_the_post_thumbnail( get_the_ID() , 'sx-custom-thumbnail', array( 'class' => 'mw-100' ) );
+
+        global $post;
+          echo get_the_post_thumbnail( $post->ID, 'sx-custom-thumbnail', array( 'class' => 'mw-100' ) );
 
         ?>
 
@@ -78,6 +86,6 @@ get_header();
   </div>
 
 <?php
-  endif;
+  }
 
   get_footer(); ?>
