@@ -1,0 +1,41 @@
+/*
+Theme Name: Dwarf theme
+Theme URI: anguloroberto.com.ve
+Author: DwarfThemes
+Author URI: anguloroberto.com.ve
+Description: A custom WorPress framework theme
+Text Domain: dwarf-theme
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: translation-ready, threaded-comments, theme-options, sticky-post, blog, featured-images, custom-logo, custom-menu, custom-colors, right-sidebar, footer-widgets, three-columns, rtl-language-support
+*/
+
+
+/* Layout utilities */
+
+.background-no-repeat-cover {
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
+.h-100vh {
+  height: 100vh;
+}
+
+/* Components */
+
+  /* Menus */
+
+  .dwf-main-menu li {
+    padding-right: 1.5rem;
+  }
+
+  /* Widgets */
+
+  /* wp default widgets */
+
+  .widget ul,
+  .widget {
+    list-style: none !important;
+  }
