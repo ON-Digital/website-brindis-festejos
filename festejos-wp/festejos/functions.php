@@ -148,7 +148,7 @@
 
     add_meta_box(
       'fes_price_metabox',
-     __( 'Precio', 'festejos' ),
+     __( 'Price', 'festejos' ),
        'fes_markup_metabox', // function callback to display form fields..
        'post',
        'normal',
