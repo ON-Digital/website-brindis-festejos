@@ -52,22 +52,22 @@
       <h2 class="font-uppercase text-primary subheading subheading--letter-spacing">
 
         <?php
-          if ( get_the_title( $id_about_pg ) ) {
 
-            echo esc_html( get_the_title( $id_about_pg ) );
+          // New version
 
-          } else {
-            ?>
+          $title_about = esc_html( get_the_title( $id_about_pg ) );
 
-            <span class="d-block heading2-small font-oblique ml-1">
-          Nuestra
-        </span>
-          historia
+          $title_about = strtok( $title_about, ' ' );
 
-        <?php
-      }
+          echo '<span class="d-block heading2-small font-oblique ml-1">' .
 
-      ?>
+              $title_about .
+
+        '</span>' .
+
+            strtok( ' ' );
+
+        ?>
 
       </h2>
 
@@ -154,6 +154,8 @@
     </div>
 
     <div class="s-services__audiovisual cols12-media992 mt-5 mt-lg-0">
+
+      <?php get_option( $services_pg_id ); ?>
       <p class="audiovisual-icon text-center mb-2">
         <a href="<?php echo esc_url( get_the_permalink( $services_pg_id ) ); ?>">
           <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -228,18 +230,20 @@
     <h2 class="text-primary font-uppercase whole-cols-width text-center subheading--letter-spacing mb-3 mb-md-5">
 
       <?php
-        $menu_title = esc_html( trim( get_the_title( $menu_pageID ) ) );
+        $menu_title = esc_html( get_the_title( $menu_pageID ) );
 
-        $main_str = substr( $menu_title, 0, strpos( $menu_title, ' ' ) );
+        $menu_title = strtok( $menu_title, ' ' );
 
-        echo $main_str;
+        echo
+            '<span class="heading2-small font-oblique d-block">' .
 
-        $subheading_small = strrchr( $menu_title, ' ' );
+                $menu_title .
 
-      ?>
-       <spanclass="heading2-small font-oblique d-block">
-        <?php echo esc_html( $subheading_small ); ?>
-      </span>
+            '</span>' .
+
+              strtok( ' ' );
+
+        ?>
 
     </h2>
 
