@@ -66,8 +66,7 @@
 
   function fes_save_posts( $post_id ) {
 
-
-        if ( ! isset( $_POST[ 'fes_mtbx_field' ] ) && ! wp_verify_nonce( $_POST[ 'fes_mtbx_field' ], 'fes_mtbx_action' ) ) {
+        if ( isset( $_POST[ 'fes_mtbx_field' ] ) && ! wp_verify_nonce( $_POST[ 'fes_mtbx_field' ], 'fes_mtbx_action' ) ) {
             return;
         }
 
@@ -167,7 +166,8 @@
     ?>
     <p>
       <label for="fes_price"></label>
-      <input type="number" name="fes_price" id="fes_price" value="<?php echo $value_price ? $value_price : ''; ?>">
+      <!-- Commit esc_attr() function -->
+      <input type="number" name="fes_price" id="fes_price" value="<?php echo $value_price ? esc_attr( $value_price ) : ''; ?>">
     </p>
     <?php
   }
