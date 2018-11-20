@@ -680,6 +680,16 @@ h2 {
 
 }
 
+@media(max-width: 480px) {
+    
+    .grid-form__input-576 {
+        width: 18rem;
+    }
+    
+}
+
+
+
 /* Tab panels */
 
 /* MAIN */
@@ -688,7 +698,7 @@ h2 {
 }
 
 .btn-grid-panes {
-  grid-column: 7 / 11;
+  grid-column: 5 / 11;
 }
 
 .s-gallery--grid {
