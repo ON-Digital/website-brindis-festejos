@@ -681,11 +681,14 @@ h2 {
 }
 
 @media(max-width: 480px) {
-    
+
     .grid-form__input-576 {
         width: 18rem;
     }
-    
+
+    .s-history__header {
+        grid-column: 1 / 11 !important;
+    }
 }
 
 

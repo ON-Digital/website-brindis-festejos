@@ -462,7 +462,7 @@
       </a>
   </div>
 
-  <button type="button" name="button" class="c-btn-collapse d-block d-xl-none --z-index-four position-absolute cursor-pointer justify-self-end position-relative cursor-pointer outline-0-onfocus mr-4 mt-2 rounded-circle p-3 pb-5 pt-4" id="menu_hamburguer">
+  <button type="button" name="button" class="c-btn-collapse d-block d-xl-none --z-index-four position-absolute cursor-pointer justify-self-end position-relative cursor-pointer outline-0-onfocus mr-1 mt-2 rounded-circle p-3 pb-5 pt-4" id="menu_hamburguer">
     <span class="c-menu-icon bg-white d-block"></span>
   </button>
 
@@ -493,7 +493,7 @@
 
           <ul class="list-unstyled whole-cols-width justify-self-center position-absolute z-index200 menu-max1200-hide main-menu-breakpoint" id="main_menu">
             <li class="main-menu__item main-menu__item--max1200 ml-4 text-center mt-5 d-xl-none">
-              <a href="" class="text-white d-inline-block logo">
+              <a href="<?php echo esc_url( get_the_permalink( $frontpage_id ) ); ?>" class="text-white d-inline-block logo">
                 <img src="<?php echo get_stylesheet_directory_uri() . '/img/logo.png'; ?>" class="mw-100" alt="">
               </a>
             </li>
@@ -509,7 +509,7 @@
             </li>
 
             <li class="main-menu__item main-menu__item--max1200 d-none d-xl-inline-block ml-4 text-center">
-              <a href="" class="text-white d-inline-block logo">
+              <a href="<?php echo esc_url( get_the_permalink( $frontpage_id ) ); ?>" class="text-white d-inline-block logo">
                 <img src="<?php echo get_stylesheet_directory_uri() . '/img/logo.png'; ?>" class="mw-100" alt="">
               </a>
             </li>

@@ -49,7 +49,7 @@
     ?>
 
     <div class="s-history__header grid-wrp align-items-center">
-      <h2 class="font-uppercase text-primary subheading subheading--letter-spacing">
+      <h2 class="font-uppercase text-primary subheading subheading--letter-spacing ml-4 ml-sm-0">
 
         <?php
 
@@ -74,17 +74,17 @@
 
       <div class="s-history__thumb d-block d-lg-none mb-3 mt-2">
         <?php
-          $attrs_thumb = array( 'class' => 'mw-100' );
+          $attrs_thumb = array( 'class' => 'mw-100 ml-4 ml-sm-0' );
 
           if ( get_the_post_thumbnail( $id_about_pg , 'medium' ) ) {
 
-            echo esc_html( get_the_post_thumbnail( $id_about_pg , 'medium' ) );
+            echo get_the_post_thumbnail( $id_about_pg , 'medium' );
 
           }
         ?>
       </div>
 
-      <p>
+      <p class="ml-4 ml-sm-0">
         <?php
         // If there's any content on the about page we print it
 
@@ -211,7 +211,17 @@
       <?php
     else:
 
-      echo esc_html( get_theme_mod( 'menu_special_txt' ) );
+      $title_spc_menu = esc_html( get_theme_mod( 'menu_special_txt' ) );
+
+      $title_spc_menu = strtok( $title_spc_menu, ' ' );
+
+      echo $title_spc_menu .
+
+      '<span class="d-block heading2-small font-oblique ml-1">' .
+
+          strtok( ' ' ) .
+
+      '</span>';
 
       endif;
     ?>

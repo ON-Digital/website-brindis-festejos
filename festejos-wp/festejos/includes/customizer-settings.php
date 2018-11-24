@@ -368,7 +368,7 @@
 
       $about_pg_img =
       '.p-about__home {
-        background-image: url( ' . $img_about . '/img/about-pg-img.jpg );
+        background-image: url( ' . $img_about . ' );
       }';
 
       wp_add_inline_style( 'fes_stylesheets', $about_pg_img );
@@ -378,7 +378,7 @@
 
 
       $services_pg_img = '.p-services__home {
-        background-image: url(' . $img_services . '/img/services-pg-thumb-01.jpg );
+        background-image: url(' . $img_services . ');
       }';
 
       wp_add_inline_style( 'fes_stylesheets', $services_pg_img );

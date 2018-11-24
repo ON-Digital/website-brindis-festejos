@@ -16,7 +16,19 @@ get_header();
       while ( have_posts() ) {
         the_post();
 
-          echo esc_html( get_the_title() );
+          //echo esc_html( get_the_title() );
+
+          $title_about = esc_html( get_the_title( $id_about_pg ) );
+
+          $title_about = strtok( $title_about, ' ' );
+
+          echo '<span class="d-block heading2-small font-oblique ml-1">' .
+
+              $title_about .
+
+        '</span>' .
+
+            strtok( ' ' );
 
       }
     } else { ?>
