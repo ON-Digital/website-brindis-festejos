@@ -99,7 +99,7 @@
       <span class="mr-3 mt-2 d-inline-block p-2">
         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
   width="88px" height="84px" viewBox="0 0 71.3 66.8" enable-background="new 0 0 88 84" xml:space="preserve">
-          <use xlink:href="#events_icon"></use>
+          <use xlink:href="#events_icon_black"></use>
         </svg>
         <p class="font-uppercase mt-1"><?php _e( 'Cristalería', 'festejos' ); ?></p>
       </span>
