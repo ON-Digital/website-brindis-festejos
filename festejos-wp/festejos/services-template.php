@@ -16,7 +16,17 @@
 
         if ( get_the_title( get_the_ID() ) ) {
 
-          echo esc_html( get_the_title() );
+          $title_services = esc_html( get_the_title( get_the_ID() ) );
+
+          $title_services = strtok( $title_services, ' ' );
+
+          echo '<span class="d-block heading2-small font-oblique ml-1">' .
+
+              $title_services .
+
+        '</span>' .
+
+            strtok( ' ' );
 
         } else {
           ?>

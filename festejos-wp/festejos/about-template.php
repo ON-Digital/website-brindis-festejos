@@ -16,7 +16,7 @@ get_header();
       while ( have_posts() ) {
         the_post();
 
-          //echo esc_html( get_the_title() );
+          $id_about_pg = get_option( 'fes_about_pg' );
 
           $title_about = esc_html( get_the_title( $id_about_pg ) );
 
