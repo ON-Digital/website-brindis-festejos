@@ -75,15 +75,23 @@
   width="88px" height="84px" viewBox="0 0 88 84" enable-background="new 0 0 88 84" xml:space="preserve">
           <use xlink:href="#microphone_icon"></use>
         </svg>
-        <p class="font-uppercase mt-1"><?php _e( 'Equipo', 'festejos' ); ?></p>
+        <p class="font-uppercase mt-1"><?php _e( 'Equipo audiovisual', 'festejos' ); ?></p>
       </span>
 
       <span class="mr-3 mt-2 d-inline-block p-2">
         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-  width="88px" height="84px" viewBox="0 0 88 84" enable-background="new 0 0 88 84" xml:space="preserve">
-          <use xlink:href="#decoration_icon"></use>
+  width="88px" height="84px" viewBox="0 0 480 480" enable-background="new 0 0 88 84" xml:space="preserve">
+          <use xlink:href="#table_food_icon"></use>
         </svg>
-        <p class="font-uppercase mt-1"><?php _e( 'Decoraciones', 'festejos' ); ?></p>
+        <p class="font-uppercase mt-1"><?php _e( 'Equipo de alquiler', 'festejos' ); ?></p>
+      </span>
+
+      <span class="mr-3 mt-2 d-inline-block p-2">
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+  width="88px" height="84px" viewBox="0 0 71.3 66.8" enable-background="new 0 0 88 84" xml:space="preserve">
+          <use xlink:href="#events_icon"></use>
+        </svg>
+        <p class="font-uppercase mt-1"><?php _e( 'Cristalería', 'festejos' ); ?></p>
       </span>
 
       <span class="mr-3 mt-2 d-inline-block p-2">
@@ -91,7 +99,7 @@
   width="88px" height="84px" viewBox="0 0 88 84" enable-background="new 0 0 88 84" xml:space="preserve">
           <use xlink:href="#innkeeper_icon"></use>
         </svg>
-        <p class="font-uppercase mt-1"><?php _e( 'Otros servicios', 'festejos' ); ?></p>
+        <p class="font-uppercase mt-1"><?php _e( 'Salonero', 'festejos' ); ?></p>
       </span>
 
       <hr class="mt-3">
