@@ -30,7 +30,7 @@
         </span>
         <span class="s-booking__text mt-3 d-inline-block">
           <strong><?php _e( 'Email:', 'festejos' ); ?></strong> info@festejosybrindis.com
-          <span class="d-block"><strong><?php _e( 'Teléfono:', 'festejos' ); ?></strong> 226-4236 / 226-1293</span>
+          <span class="d-block"><strong><?php _e( 'Teléfono:', 'festejos' ); ?></strong> 6157 6837</span>
         </span>
       </div>
 
