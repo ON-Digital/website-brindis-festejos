@@ -23,6 +23,32 @@
 
   add_action( 'wp_head', 'fes_fonts' );
 
+  add_filter( 'fes_attr_filtered', 'fes_attr_filtered' );
+
+  function fes_attr_filtered( $cat_name ) {
+
+
+    if ( preg_match( '/\s/', $cat_name ) ) {
+
+      $cat_name = preg_replace( '/\s+/', '_', $cat_name );
+
+    }
+
+    $args =
+      array(
+        'á' => 'a',
+        'é' => 'e',
+        'í' => 'i',
+        'ó' => 'o',
+        'ú' => 'u',
+        'ñ' => 'n',
+      );
+
+    $cat_name = strtolower( strtr( $cat_name, $args ) );
+
+    return $cat_name;
+  }
+
   function fes_fonts() {
     ?>
       <style media="screen">
@@ -167,7 +193,7 @@
     <p>
       <label for="fes_price"></label>
       <!-- Commit esc_attr() function -->
-      <input type="number" name="fes_price" id="fes_price" value="<?php echo $value_price ? esc_attr( $value_price ) : ''; ?>">
+      <input type="number" name="fes_price" id="fes_price" step="any" value="<?php echo $value_price ? esc_attr( $value_price ) : ''; ?>">
     </p>
     <?php
   }
