@@ -229,7 +229,7 @@
     </h2>
 
     <p class="whole-cols-width mt-2 mb-5">
-      <a href="<?php echo esc_url( get_theme_mod( 'menu_special_pdf' ) ? get_theme_mod( 'menu_special_pdf' ) : '' ); ?>" target="_blank" class="btn btn-primary text-white box-shadow rounded-0 pl-5 pr-5 pt-2 pb-2">
+      <a href="<?php echo esc_url( get_theme_mod( 'menu_pdf' ) ? get_theme_mod( 'menu_pdf' ) : '' ); ?>" target="_blank" class="btn btn-primary text-white box-shadow rounded-0 pl-5 pr-5 pt-2 pb-2">
         <?php _e( 'VER MENÚ', 'festejos' ); ?>
       </a>
     </p>

@@ -159,41 +159,36 @@
 
       <?php
 
-              // $dwf_menu_id = 'dwf_footer_menu';
-              //
-              // $dwf_arr_obj_items = apply_filters( 'dwf_get_menu_items', $dwf_menu_id );
+        $frontpage_id = get_option( 'page_on_front' );
 
-              $frontpage_id = get_option( 'page_on_front' );
+        $about_page_option = get_option( 'fes_about_pg' );
 
-              $about_page_option = get_option( 'fes_about_pg' );
+        $services_page_option = get_option( 'fes_services_pg' );
 
-              $services_page_option = get_option( 'fes_services_pg' );
+        ?>
 
-              ?>
+        <div class="whole-cols-width text-center bg-dark w-100">
+          <ul class="list-unstyled pt-3">
+            <li class="d-inline-block ml-sm-5 text-center text-sm-left w-100 w-sm-inherit">
+              <a href="<?php echo esc_url( get_the_permalink( $frontpage_id ) ); ?>" class="text-white menu-item font-uppercase menu-item--letter-spacing">Inicio <span class="d-inline-block arrow-character ml-3">&#711;</span>
+              </a>
+            </li>
 
-              <div class="whole-cols-width text-center bg-dark w-100">
-                <ul class="list-unstyled pt-3">
-                  <li class="d-inline-block ml-sm-5 text-center text-sm-left w-100 w-sm-inherit">
-                    <a href="<?php echo esc_url( get_the_permalink( $frontpage_id ) ); ?>" class="text-white menu-item font-uppercase menu-item--letter-spacing">Inicio <span class="d-inline-block arrow-character ml-3">&#711;</span>
-                    </a>
-                  </li>
+            <li class="d-inline-block ml-sm-5 text-center text-sm-left w-100 w-sm-inherit">
+              <a href="<?php echo esc_url( get_the_permalink( $about_page_option ) ); ?>" class="text-white menu-item font-uppercase menu-item--letter-spacing">Nosotros <span class="d-inline-block arrow-character ml-3">&#711;</span>
+              </a>
+            </li>
 
-                  <li class="d-inline-block ml-sm-5 text-center text-sm-left w-100 w-sm-inherit">
-                    <a href="<?php echo esc_url( get_the_permalink( $about_page_option ) ); ?>" class="text-white menu-item font-uppercase menu-item--letter-spacing">Nosotros <span class="d-inline-block arrow-character ml-3">&#711;</span>
-                    </a>
-                  </li>
+            <li class="d-inline-block ml-sm-5 text-center text-sm-left w-100 w-sm-inherit">
+              <a href="<?php echo esc_url( get_the_permalink( $services_page_option ) ); ?>" class="text-white font-uppercase menu-item menu-item--letter-spacing">Servicios <span class="d-inline-block arrow-character ml-3">&#711;</span>
+              </a>
+            </li>
 
-                  <li class="d-inline-block ml-sm-5 text-center text-sm-left w-100 w-sm-inherit">
-                    <a href="<?php echo esc_url( get_the_permalink( $services_page_option ) ); ?>" class="text-white font-uppercase menu-item menu-item--letter-spacing">Servicios <span class="d-inline-block arrow-character ml-3">&#711;</span>
-                    </a>
-                  </li>
-
-                  <li class="d-inline-block ml-sm-5 text-center text-sm-left w-100 w-sm-inherit">
-                    <a href="<?php echo esc_url( get_theme_mod( 'menu_special_pdf' ) ? get_theme_mod( 'menu_special_pdf' ) : '' ); ?>" target="_blank" class="text-white font-uppercase menu-item menu-item--letter-spacing">Menú <span class="d-inline-block arrow-character ml-3">&#711;</span>
-                    </a>
-                  </li>
-
-                </ul>
+            <li class="d-inline-block ml-sm-5 text-center text-sm-left w-100 w-sm-inherit">
+              <a href="<?php echo esc_url( get_theme_mod( 'menu_special_pdf' ) ? get_theme_mod( 'menu_special_pdf' ) : '' ); ?>" target="_blank" class="text-white font-uppercase menu-item menu-item--letter-spacing">Menú <span class="d-inline-block arrow-character ml-3">&#711;</span>
+              </a>
+            </li>
+          </ul>
 
         <p class="text-white text-center w-100 whole-cols-width s-contact__social-icon">
           <a href="https://www.facebook.com/festejosybrindis/" target="_blank" class="text-white">

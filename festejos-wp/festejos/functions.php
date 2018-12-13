@@ -424,9 +424,9 @@
     $number = sanitize_text_field( $number );
     $message = esc_textarea( $message );
     $subject = __( 'Email enviado desde el sitio web', 'festejos' );
-    $to = get_option( 'admin_email' );
+    $to = get_option( 'admin_email' ) ? get_option( 'admin_email' ) : 'info@festejosybrindis.com';
     $headers = __( 'De: ', 'festejos' ) . $name . '(' . $number . ')' . ' <' . $email . '>';
-    $mail = wp_mail( $to, $subject, $message );
+    $mail = wp_mail( $to, $subject, $message, $headers );
 
     // Return a message with the status of the operation, success or failure
     if ( $mail ) {

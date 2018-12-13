@@ -252,6 +252,26 @@
       );
 
       $wp_customize->add_setting(
+         'menu_pdf',
+         array(
+             'default' => '',
+             'sanitize_callback' => 'sanitize_text_field',
+             'transport' => 'postMessage',
+         )
+      );
+
+      $wp_customize->add_control(
+          new WP_Customize_Upload_Control(
+              $wp_customize, 'menu_pdf_control',
+              array(
+                'label' => esc_html__( 'Subir documento PDF del menú especial', 'festejos' ),
+                'section' => 'static_front_page',
+                'settings' => 'menu_pdf'
+              )
+          )
+      );
+
+      $wp_customize->add_setting(
          'menu_special_pdf',
          array(
              'default' => '',
