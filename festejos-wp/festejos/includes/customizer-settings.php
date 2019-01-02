@@ -333,7 +333,47 @@
           )
       );
 
+      // Whatsapp button text
+      $wp_customize->add_setting(
+         'btn_txt_wht',
+         array(
+             'default' => '',
+             'sanitize_callback' => 'sanitize_text_field',
+             'transport' => 'postMessage',
+         )
+      );
 
+      $wp_customize->add_control(
+          new WP_Customize_Control(
+              $wp_customize, 'btn_txt_wht_control',
+              array(
+                'label' => esc_html__( 'Texto para botón de Whatsapp', 'festejos' ),
+                'section' => 'static_front_page',
+                'settings' => 'btn_txt_wht'
+              )
+          )
+      );
+
+      // Whatsapp button text
+      $wp_customize->add_setting(
+         'horario_txt',
+         array(
+             'default' => '',
+             'sanitize_callback' => 'sanitize_text_field',
+             'transport' => 'postMessage',
+         )
+      );
+
+      $wp_customize->add_control(
+          new WP_Customize_Control(
+              $wp_customize, 'horario_txt_control',
+              array(
+                'label' => esc_html__( 'Texto horario de trabajo', 'festejos' ),
+                'section' => 'static_front_page',
+                'settings' => 'horario_txt'
+              )
+          )
+      );
 
   }
 

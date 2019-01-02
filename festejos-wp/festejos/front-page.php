@@ -12,10 +12,21 @@
           </svg>
         </span>
 
-        <span class="d-block d-lg-inline-block s-booking__text mt-lg-3">
-          <?php _e( 'Lunes - Viernes  8am - 5pm', 'festejos' ); ?>
-          <span class="d-block"><?php _e( 'Sábado  8am - 12pm', 'festejos' ); ?></span>
+        <span class="d-block d-lg-inline-block s-booking__text mt-lg-3" id="horario_txt">
 
+          <?php
+            $horario_txt = get_theme_mod( 'horario_txt' );
+
+            if ( $horario_txt ) {
+
+              echo esc_html( $horario_txt );
+
+            } else {
+
+              _e( 'Lunes - Viernes  8am - 4pm', 'festejos' ); ?>
+             <span class="d-block"><?php _e( 'Sábado  8am - 12pm', 'festejos' ); ?></span>
+
+           <?php } ?>
         </span>
       </div>
 
@@ -66,9 +77,7 @@
         '</span>' .
 
             strtok( ' ' );
-
         ?>
-
       </h2>
 
 
@@ -235,142 +244,6 @@
     </p>
   </div>
 
-  <section class="s-menu grid-wrp grid-12cols mt-5">
-
-    <h2 class="text-primary font-uppercase whole-cols-width text-center subheading--letter-spacing mb-3 mb-md-5">
-
-      <?php
-        $menu_title = esc_html( get_the_title( $menu_pageID ) );
-
-        $menu_title = strtok( $menu_title, ' ' );
-
-        echo
-            '<span class="heading2-small font-oblique d-block">' .
-
-                $menu_title .
-
-            '</span>' .
-
-              strtok( ' ' );
-
-        ?>
-
-    </h2>
-
-    <ul class="mt-3 s-menu__buttons pt-3 text-center nav nav-tabs" role="tablist">
-
-      <?php
-        $categories = get_categories();
-
-        if ( ! empty( $categories ) && is_array( $categories ) ) {
-
-          $cat_counter = 1;
-
-          foreach ( $categories as $key_cat => $value_cat ) {
-
-            $cat_name = $value_cat->name;
-
-            ?>
-
-              <li class="nav-item mb-4">
-                  <a href="#tab_panel<?php echo $cat_counter; ?>" class="btn btn-primary btn-primary--ghost c-btn-width rounded-0 font-uppercase nav-link <?php echo $cat_counter === 1 ? 'active' : ''; ?>" tabindex="0" role="tab" aria-controls="tab_panel<?php echo $cat_counter; ?>" id="<?php echo apply_filters( 'fes_attr_filtered', fes_attr_filtered( $cat_name ) ); ?>_tab" data-toggle="tab" aria-selected="<?php echo $cat_counter === 1 ? 'true' : 'false'; ?>">
-
-                    <?php
-                      echo $cat_name;
-                    ?>
-                  </a>
-              </li>
-
-              <?php
-
-              $cat_counter++;
-          }
-        }
-      ?>
-    </ul>
-
-    <div class="tab-content s-menu__items">
-
-      <?php
-
-        if ( ! empty( $categories ) && is_array( $categories ) ) {
-
-          $cat_counter = 1;
-
-          foreach ( $categories as $cat_key => $cat_value ) {
-
-            ?>
-              <div id="tab_panel<?php echo $cat_counter;?>" role="tabpanel" class="fade <?php echo $cat_counter === 1 ? 'show active' : ''; ?> tab-pane grid-12cols mt-3" aria-labelledby="<?php echo apply_filters( 'fes_attr_filtered', fes_attr_filtered( $cat_name ) ); ?>_tab">
-
-                <?php
-                $cat_ID = $cat_value->cat_ID;
-
-                $args =
-                  array(
-                    'cat' => $cat_ID,
-                  );
-
-                  $cat_query = new WP_Query( $args );
-
-                  if( $cat_query->have_posts() ) {
-
-                    ?>
-
-                      <div class="tab-pane__col1">
-
-                    <?php
-
-                    while ( $cat_query->have_posts() ) {
-                      $cat_query->the_post();
-
-                      $price = get_post_meta( get_the_ID(), 'fes_price', true );
-
-                      ?>
-                        <p>
-                          <?php
-                            echo esc_html( get_the_title() );
-                          ?>
-                          <span class="float-right">B/. <?php
-                            echo esc_html( $price );
-                          ?>
-                          </span>
-                        </p>
-                      <?php
-                    }
-                    ?>
-
-                    </div>
-
-                    <?php
-
-                  } else {
-                    /* No posts found */
-                  }
-
-                  wp_reset_postdata();
-
-                ?>
-
-              </div>
-            <?php
-
-              $cat_counter++;
-            }
-        }
-
-      ?>
-
-      </div>
-    </div>
-  </div>
-
-    <p class="text-center mr-5 whole-cols-width btn-grid-panes mt-5">
-      <a href="<?php echo esc_url( get_theme_mod( 'menu_special_pdf' ) ? get_theme_mod( 'menu_special_pdf' ) : '' ); ?>" target="_blank" class="btn btn-primary rounded-0 font-uppercase"><?php _e( 'Ver menú completo', 'festejos' ); ?></a>
-    </p>
-
-    <div class="whole-cols-width cooking-bg background-no-repeat-cover cooking-bg--height w-100 mt-4">
-    </div>
-  </section>
 
   <section class="s-gallery mt-5 mb-5">
     <?php

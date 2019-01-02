@@ -105,15 +105,20 @@ jQuery( document ).ready( function( $ ) {
 
   } );
 
+  wp.customize( 'btn_txt_wht', function( value ) {
 
+   value.bind( function( to ) {
+     $( '#btn_txt_wht' ).html( to );
+   } );
 
+  } );
 
+  wp.customize( 'horario_txt', function( value ) {
 
+   value.bind( function( to ) {
+     $( '#horario_txt' ).html( to );
+   } );
 
-
-  //
-
-
-
+  } );
 
 } );

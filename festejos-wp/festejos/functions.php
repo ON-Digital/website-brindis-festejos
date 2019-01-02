@@ -7,46 +7,226 @@
   require_once( get_stylesheet_directory() . '/includes/customizer-settings.php' );
 
   // Hooks
-  // add_action( 'wp_enqueque_scripts', 'fes_enqueue_scripts' );
-
   add_action( 'after_setup_theme', 'fes_on_activation_theme' );
-
-  add_action( 'admin_menu', 'fes_change_taxonomies_names' );
-
-  add_action( 'init', 'fes_change_labels_posts' );
-
-  add_action( 'init', 'fes_insert_term_taxonomies' );
-
-  add_action( 'add_meta_boxes', 'fes_metabox_price_product' );
-
-  add_action( 'save_post', 'fes_save_posts' );
 
   add_action( 'wp_head', 'fes_fonts' );
 
-  add_filter( 'fes_attr_filtered', 'fes_attr_filtered' );
+  add_action( 'widgets_init', 'fes_widgets' );
 
-  function fes_attr_filtered( $cat_name ) {
+  // add_action( 'fes_related_posts' , 'fes_related_posts' );
 
+  add_action( 'fes_posts_pagination' , 'fes_posts_pagination' );
 
-    if ( preg_match( '/\s/', $cat_name ) ) {
+  add_action( 'wp_head', 'fes_hero_img' );
 
-      $cat_name = preg_replace( '/\s+/', '_', $cat_name );
+  function fes_hero_img()
+  {
+    global $post;
 
-    }
+    $url = get_the_post_thumbnail_url( $post->ID , 'large' );
+    ?>
+
+    <style media="screen">
+
+      .bg-thumb-heroPg {
+          background-image: url( <?php echo $url; ?> );
+      }
+
+    </style>
+    <?php
+  }
+
+  // Pagination for posts
+   function fes_posts_pagination( $sx_total_pags )
+  {
+      $big = 999999999; // need an unlikely integer
+
+      echo paginate_links( array(
+        'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+        // 'format' => '?paged=%#%',
+        'current' => max( 1, get_query_var( 'paged' ) ),
+        'prev_text'          => '<span class="icon icon-arrow-left2"></span>' . __( ' Previous', 'festejos' ),
+        'next_text'          => __( 'Next ', 'festejos' ) . '<span class="icon icon-arrow-right2"></span>',
+        'total' => $sx_total_pags
+      ) );
+  }
+
+  function fes_related_posts( $sx_tags )
+  {
+    global $post;
 
     $args =
       array(
-        'á' => 'a',
-        'é' => 'e',
-        'í' => 'i',
-        'ó' => 'o',
-        'ú' => 'u',
-        'ñ' => 'n',
+        'tag__in' => $sx_tags, // We use the array of term ids tags
+        'post__not_in' => array( $post->ID ),
+        'posts_per_page' => 3,
+        'has_password' => false,
       );
 
-    $cat_name = strtolower( strtr( $cat_name, $args ) );
+      $my_query = new WP_Query( $args );
 
-    return $cat_name;
+    // So we loop throught posts that have the same tags that the current posts
+    if( $my_query->have_posts() ) {
+
+        echo '<section class="row mt-4 related-posts" id="">';
+    ?>
+
+      <!-- <h2 class="text-center text-primary p-1 col-12 mb-4 related-posts-tit">
+        <?php #_e( 'Publicaciones relacionadas', 'festejos' ); ?>
+      </h2> -->
+
+    <?php
+
+      while ( $my_query->have_posts() ) {
+        $my_query->the_post();
+
+          /**
+           * Thumbnail ID
+           *
+           * @var integer $id_thumbnail
+           */
+          $id_thumbnail = get_post_thumbnail_id();
+
+         /**
+          * Thumbnail alternative text
+          *
+          * @var string $alt_thumbnail
+          */
+         $alt_thumbnail = get_post_meta( $id_thumbnail, '_wp_attachment_image_alt', true );
+
+         /**
+          * Number of comments on the current post
+          *
+          * @var string $comments
+          */
+         $comments = get_comments_number();
+
+         /**
+          * Url post comments
+          *
+          * @var string $link_comments
+          */
+         $link_comments = get_comments_link();
+        ?>
+      <div class="ml-auto mr-auto mb-4">
+          <a href="<?php the_permalink(); ?>">
+              <?php the_post_thumbnail( 'sx-custom-thumbnail', array( 'class' => 'mw-100 h-75 ml-auto mr-auto', 'alt' => $alt_thumbnail ) ); ?>
+          </a>
+
+          <h4 class="line-height mt-3">
+            <a href="<?php the_permalink(); ?>" class="text-dark">
+              <?php the_title(); ?>
+            </a>
+          </h4>
+          <!-- <div class=""></div> -->
+
+          <p class="">
+            <a href="<?php esc_url( $link_comments ); ?>" class="text-primary">
+              <?php
+                  // translators: %s: Number of comments
+                  echo sprintf( _n( '%s comentario', '%s comentarios', $comments, 'festejos'  ), $comments  );
+               ?>
+             </a>
+          </p>
+      </div>
+        <?php
+      }
+
+      echo '</section>';
+    }
+    wp_reset_postdata();
+  }
+
+  function fes_comments_cb( $comments, $args, $depth )
+  {
+    global $post;
+    ?>
+
+    <!-- If it's a pingpack or trackback -->
+    <?php
+    if ( ( $comments->comment_type === 'pingback' ) || ( $comments->comment_type === 'trackback' ) ) : ?>
+
+        <li class="list-unstyled">
+          <article class="sx-pingback mb-4">
+              <h3 class="mb-4 d-inline">
+                <?php
+                    _e( 'Pingback: ', 'festejos' );
+                  comment_author_link();
+                ?>
+              </h3>
+          </article>
+
+    <?php
+    endif;
+    ?>
+
+      <li class="list-unstyled mt-3">
+        <article class="<?php echo $comments->user_id === $post->post_author ? 'border border-primary box-shadow p-4' : ''; ?>">
+            <h3 class="mb-4 d-inline">
+
+              <?php
+
+                  // Print avatar
+                  echo get_avatar( $comments, 41 );
+
+                  // Name of the author wrapped on a link to his/her site
+                  comment_author_link( $comments->comment_ID );
+              ?>
+            </h3>
+
+            <span class="comment-meta commentmetadata">
+               <?php
+               /* translators: 1: date, 2: time */
+               printf( __( '%1$s at %2$s', 'festejos' ), esc_html( get_comment_date() ),  esc_html( get_comment_time() ) ); ?>
+            </span>
+
+            <!-- Message if the comment have not been aproved yet -->
+            <?php if ( $comments->comment_approved == '0' ) : ?>
+                 <span class="comment-awaiting-moderation">
+                   <?php _e( 'Tu comentario está esperando por aprobación.', 'festejos' ); ?>
+                 </span>
+                  <br />
+            <?php endif; ?>
+
+            <!-- comment text -->
+
+            <p class="mt-4">
+              <?php echo get_comment_text(); ?>
+            </p>
+
+            <!-- Replay link -->
+            <div class="reply">
+                <?php
+
+                  comment_reply_link( array_merge( $args, array( 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) );
+
+                 ?>
+            </div>
+        </article>
+    <?php
+  }
+
+  function fes_widgets()
+  {
+    register_sidebar( array (
+      'name' => __( "Blog post sidebar 1", 'festejos' ),
+      'id' => 'post-right',
+      'description' => __( 'Sidebar para blog post en la parte derecha de la pantalla', 'festejos' ),
+      'before_widget' => '<li id="%1$s" class="widget %2$s">',
+      'after_widget' => "</li>",
+      'before_title' => '<h2 class="sidebar-title">',
+      'after_title' => "</h2>"
+    ) );
+
+    register_sidebar( array (
+      'name' => __( "Blog post sidebar 2", 'festejos' ),
+      'id' => 'post-down',
+      'description' => __( 'Sidebar para blog post en la parte inferior de la pantalla', 'festejos' ),
+      'before_widget' => '<li id="%1$s" class="widget %2$s">',
+      'after_widget' => "</li>",
+      'before_title' => '<h2 class="sidebar-title">',
+      'after_title' => "</h2>"
+    ) );
   }
 
   function fes_fonts() {
@@ -87,136 +267,6 @@
     </style>
 
     <?php
-  }
-
-
-  function fes_save_posts( $post_id ) {
-
-        if ( isset( $_POST[ 'fes_mtbx_field' ] ) && ! wp_verify_nonce( $_POST[ 'fes_mtbx_field' ], 'fes_mtbx_action' ) ) {
-            return;
-        }
-
-        if( ! current_user_can( 'edit_post', $post_id ) ){
-          return;
-        }
-
-        if ( wp_is_post_autosave( $post_id ) ) {
-            return;
-        }
-
-        if ( wp_is_post_revision( $post_id ) ) {
-            return;
-        }
-
-        if ( isset( $_POST[ 'fes_price' ] ) ) {
-    			update_post_meta( $post_id, 'fes_price', sanitize_text_field( $_POST[ 'fes_price' ] ) );
-    		}
-
-   }
-
-  function fes_insert_term_taxonomies() {
-
-    if ( ! term_exists( 'boquitas', 'category' ) ) {
-
-        wp_insert_term( 'boquitas', 'category', array( 'slug' => 'appetizer' ) );
-
-    }
-
-    if ( ! term_exists( 'comida', 'category' ) ) {
-
-      wp_insert_term( 'comida', 'category', array( 'slug' => 'food' ) );
-
-    }
-
-    if ( ! term_exists( 'postres', 'category' ) ) {
-
-      wp_insert_term( 'postres', 'category', array( 'slug' => 'desserts' ) );
-
-    }
-
-    if ( ! term_exists( 'refrescos', 'category' ) ) {
-
-      wp_insert_term( 'refrescos', 'category', array( 'slug' => 'soda' ) );
-
-    }
-
-    if ( ! term_exists( 'equipos', 'category' ) ) {
-
-      wp_insert_term( 'equipos', 'category', array( 'slug' => 'equipment' ) );
-
-    }
-
-    if ( ! term_exists( 'decoraciones', 'category' ) ) {
-
-      wp_insert_term( 'decoraciones', 'category', array( 'slug' => 'decorations' ) );
-
-    }
-
-    if ( ! term_exists( 'otros', 'category' ) ) {
-
-      wp_insert_term( 'otros', 'category', array( 'slug' => 'others' ) );
-
-    }
-
-  }
-
-  function fes_change_taxonomies_names() {
-
-    global $submenu;
-    $submenu['edit.php'][15][0] = 'Product'; // Rename categories to Producto
-
-    // $submenu['edit.php'][16][0] = 'Price';
-
-  }
-
-  function fes_metabox_price_product() {
-
-    add_meta_box(
-      'fes_price_metabox',
-     __( 'Price', 'festejos' ),
-       'fes_markup_metabox', // function callback to display form fields..
-       'post',
-       'normal',
-       'high'
-    );
-
-  }
-
-  function fes_markup_metabox() {
-
-    global $post;
-
-    wp_nonce_field( 'fes_mtbx_action', 'fes_mtbx_field' );
-
-    $value_price = get_post_meta( $post->ID, 'fes_price', true );
-    ?>
-    <p>
-      <label for="fes_price"></label>
-      <!-- Commit esc_attr() function -->
-      <input type="number" name="fes_price" id="fes_price" step="any" value="<?php echo $value_price ? esc_attr( $value_price ) : ''; ?>">
-    </p>
-    <?php
-  }
-
-  function fes_change_labels_posts() {
-
-    global $wp_taxonomies;
-
-    // Rename category to product labels
-    $labels = &$wp_taxonomies[ 'category' ]->labels;
-    $labels->name = 'Product';
-    $labels->singular_name = 'Product';
-    $labels->add_new = 'Add Product';
-    $labels->add_new_item = 'Add Product';
-    $labels->edit_item = 'Edit Product';
-    $labels->new_item = 'Product';
-    $labels->view_item = 'View Product';
-    $labels->search_items = 'Search Products';
-    $labels->not_found = 'No Products found';
-    $labels->not_found_in_trash = 'No Products found in Trash';
-    $labels->all_items = 'All Products';
-    $labels->menu_name = 'Product';
-    $labels->name_admin_bar = 'Product';
   }
 
   function fes_on_activation_theme() {
@@ -359,9 +409,9 @@
                  */
                   $menu_page_option_args =
                       array(
-                        'post_title' => 'Nuestro menú',
-                        'post_name' => 'menu-page',
-                        'post_content' => 'Esta es la página para el menú',
+                        'post_title' => 'Blog',
+                        'post_name' => 'fes-blog-pg',
+                        'post_content' => 'Página para el blog',
                         'post_status' => 'publish',
                         'post_type' => 'page',
                   );
@@ -383,14 +433,19 @@
 
   function dwf_enqueue_resources() {
 
+    // Enqueue script for thread comments
+    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+
+      wp_enqueue_script( 'comment-reply' );
+    }
+
     // Enqueue styles
-    wp_register_style( 'fes_magnific_popup', get_stylesheet_directory_uri() . '/Magnific-Popup-master/dist/magnific-popup.css' );
 
     wp_register_style( 'fes_bootstrap', get_stylesheet_directory_uri() . '/bootstrap-4.0/dist/css/bootstrap.min.css' );
 
     wp_register_style( 'fes_iconmoon', get_stylesheet_directory_uri() . '/IcoMoon-Free/style.css' );
 
-    wp_enqueue_style( 'fes_stylesheets', get_stylesheet_directory_uri() . '/style.css', array( 'fes_bootstrap', 'fes_magnific_popup', 'fes_iconmoon',  ) );
+    wp_enqueue_style( 'fes_stylesheets', get_stylesheet_directory_uri() . '/style.css', array( 'fes_bootstrap', 'fes_iconmoon' ) );
 
     // Enqueue scripts
 

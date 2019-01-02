@@ -1,14 +1,24 @@
 <?php
   get_header();
 
-    if( have_posts() ) {
-      ?>
+    if( have_posts() ) { ?>
 
-        <!-- <div class="text-center w-100 mt-4 mb-4"> -->
-          <?php #get_search_form(); ?>
-        <!-- </div> -->
+        <h2 class="w-100 text-center mt-4 mb-4 text-primary font-uppercase font-3rem services-letter-spacing">
+          <?php
+
+            echo 'Resultados para ' .
+
+            '<span class="font-oblique">' .
+
+              esc_html( get_search_query() ) .
+
+             '</span>';
+
+          ?>
+        </h2>
 
       <?php
+
       $counter = 0;
       while ( have_posts() ) {
         the_post();
@@ -57,6 +67,7 @@
 
                   <?php
 
+
                     if ( $counter % 2 === 0 ) { ?>
 
                       <h2 class="mt-4 article-index__excerpt-tit mt-2">
@@ -76,11 +87,7 @@
                     <?php
                   } elseif ( $counter % 2 !== 0 ) {
 
-                    echo '<a href="' . esc_url( get_the_permalink() ) . '">' .
-
-                      get_the_post_thumbnail( get_the_ID(), 'sx-custom-thumbnail' , $attrs ) .
-
-                    '</a>';
+                    echo get_the_post_thumbnail( get_the_ID(), 'sx-custom-thumbnail' , $attrs );
                   }
 
                   ?>
