@@ -342,7 +342,7 @@
       	<path fill="#52247F" d="M41.5,25.8c0.3,0,0.5-0.1,0.7-0.3c0.2-0.2,0.3-0.4,0.3-0.7s-0.1-0.5-0.3-0.7c-0.2-0.2-0.4-0.3-0.7-0.3
       		c-0.3,0-0.5,0.1-0.7,0.3c-0.2,0.2-0.3,0.4-0.3,0.7s0.1,0.5,0.3,0.7C40.9,25.7,41.2,25.8,41.5,25.8"/>
       </g>
-      
+
       <g id="events_icon_black">
       	<path fill="#000000" d="M38.4,40.1c4.1-2.7,6.9-7,7.7-11.9c0.3-2.2,0.2-4.5-0.3-6.7l-2.4-10c-0.1-0.4-0.5-0.7-0.9-0.7H27.9
       		c-0.4,0-0.8,0.3-0.9,0.7l-2.4,10c-0.5,2.2-0.6,4.5-0.3,6.7c0.7,4.9,3.5,9.2,7.7,11.9l2.3,1.5v12.7L26.7,58
@@ -527,9 +527,11 @@
 
       echo 'p-about__home h-25rem';
 
-    } elseif ( is_home() ) {
+    } elseif ( is_home() || is_single() || is_search() ) {
 
-      echo 'p-menu__home h-25rem';
+      $background = get_the_post_thumbnail( $post->ID ) ? 'bg-thumb-heroPg' : 'bg-gradient-primary';
+
+      echo 'h-25rem ' . $background;
 
     }
 
@@ -546,6 +548,7 @@
   </div>
 
   <div class="whole-cols-width s-home__social mt-4 d-none d-lg-block position-absolute --z-index-four">
+
       <!-- On desktop devices -->
       <a  href="https://www.facebook.com/festejosybrindis/" target="_blank" class="text-white">
         <span class="icon icon-facebook">
@@ -594,12 +597,14 @@
             </li>
 
             <li class="main-menu__item main-menu__item--max1200 d-block d-xl-inline-block ml-4 text-center">
-              <a href="<?php echo esc_url( get_the_permalink( $about_page_option ) ) ?>" class="text-white menu-item menu-item--purple-hov font-uppercase menu-item--letter-spacing p-3 transition"><?php _e( 'Nosotros', 'festejos' ); ?> <span class="d-inline-block arrow-character ml-3 mr-2">&#711;</span>
+              <a href="<?php echo esc_url( get_the_permalink( $about_page_option ) ) ?>" class="text-white menu-item menu-item--purple-hov font-uppercase menu-item--letter-spacing p-3 transition"><?php _e( 'Nosotros', 'festejos' ); ?>
+                <!-- <span class="d-inline-block arrow-character ml-3 mr-2">&#711;</span> -->
               </a>
             </li>
 
             <li class="main-menu__item main-menu__item--max1200 d-block d-xl-inline-block ml-4 text-center">
-              <a href="<?php echo esc_url( get_the_permalink( $services_page_option ) ) ?>" class="text-white font-uppercase menu-item--purple-hov menu-item--letter-spacing p-3 transition"><?php _e( 'Servicios', 'festejos' ); ?> <span class="d-inline-block arrow-character ml-3 mr-2">&#711;</span>
+              <a href="<?php echo esc_url( get_the_permalink( $services_page_option ) ) ?>" class="text-white font-uppercase menu-item--purple-hov menu-item--letter-spacing p-3 transition"><?php _e( 'Servicios', 'festejos' ); ?>
+                <!-- <span class="d-inline-block arrow-character ml-3 mr-2">&#711;</span> -->
               </a>
             </li>
 
@@ -610,12 +615,24 @@
             </li>
 
             <li class="main-menu__item main-menu__item--max1200 d-block d-xl-inline-block ml-4 text-center">
-              <a href="<?php echo esc_url( get_theme_mod( 'menu_special_pdf' ) ? get_theme_mod( 'menu_special_pdf' ) : '' ); ?>" class="text-white font-uppercase menu-item--purple-hov menu-item--letter-spacing p-3 transition rounded"><?php _e( 'Menu', 'festejos' ); ?> <span class="d-inline-block arrow-character ml-3 mr-2">&#711;</span>
+              <a href="<?php echo esc_url( get_theme_mod( 'menu_special_pdf' ) ? get_theme_mod( 'menu_special_pdf' ) : '' ); ?>" class="text-white font-uppercase menu-item--purple-hov menu-item--letter-spacing p-3 transition rounded"><?php _e( 'Menu', 'festejos' ); ?>
+                <!-- <span class="d-inline-block arrow-character ml-3 mr-2">&#711;</span> -->
               </a>
             </li>
 
             <li class="main-menu__item main-menu__item--max1200 d-block d-xl-inline-block ml-4 text-center">
-              <a href="#contact_section" id="scroll_contact" class="text-white font-uppercase menu-item--purple-hov menu-item--letter-spacing text-center transition p-3"><?php _e( 'Contacténos', 'festejos' ); ?> <span class="d-inline-block arrow-character ml-3 mr-2">&#711;</span>
+              <?php
+                $blog_url = get_option( 'page_for_posts' );
+              ?>
+              <a href="<?php echo esc_url( get_the_permalink( $blog_url ) ); ?>" class="text-white menu-item menu-item--purple-hov font-uppercase menu-item--letter-spacing p-3 transition">
+                Blog
+              </a>
+            </li>
+
+            <li class="main-menu__item main-menu__item--max1200 d-block d-xl-inline-block ml-4 text-center">
+              <a href="<?php echo ! is_home() && ! is_single() ? '#contact_section' : esc_url( get_the_permalink( $frontpage_id ) ) . '/#contact_section'; ?>" id="<?php echo ! is_home() && ! is_single() ? 'scroll_contact' : ''; ?>" class="text-white font-uppercase menu-item--purple-hov menu-item--letter-spacing text-center transition p-3"><?php _e( 'Contacténos', 'festejos' ); ?>
+
+                <!-- <span class="d-inline-block arrow-character ml-3 mr-2">&#711;</span> -->
               </a>
             </li>
           </ul>
@@ -713,15 +730,24 @@
         </div>
 
         <a class="carousel-control-prev c-carousel-control" href="#carousel_main" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next c-carousel-control" href="#carousel_main" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+        </a>
+
+        <a class="carousel-control-next c-carousel-control" href="#carousel_main" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
       <?php
+
+      elseif ( is_home() ) :
+
+        echo '<div class="form-container">';
+
+          get_search_form();
+
+        echo '</div>';
 
     endif;
 

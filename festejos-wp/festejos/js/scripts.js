@@ -32,4 +32,34 @@ jQuery( document ).ready( function( $ ) {
 
    } );
 
+   // var elements = $( '.related-posts' );
+   //
+   // function fes_carousel( elements ) {
+   //    elements.slick( {
+   //      dots: false,
+   //      arrows: true,
+   //      // prevArrow: icon_1,
+   //      // nextArrow: icon_2,
+   //      slidesToShow: 2,
+   //      autoplay: false,
+   //      speed: 600,
+   //
+   //        responsive: [ {
+   //
+   //          breakpoint: 992,
+   //          settings: {
+   //            slidesToShow: 2
+   //          }
+   //        }, {
+   //
+   //          breakpoint: 768,
+   //          settings: {
+   //            slidesToShow: 1
+   //          }
+   //        }
+   //     ],
+   //
+   //    } );
+   //  }
+
 } );
